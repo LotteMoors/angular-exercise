@@ -59,7 +59,7 @@ export class DataService {
       .pipe(catchError(this.handleError));
   }
 
-  getProductsById(id: number): Observable<IProduct> {
+  getProductById(id: number): Observable<IProduct> {
     return this.http
       .get<IProduct>(`https://dummyjson.com/products/${id}`)
       .pipe(catchError(this.handleError));

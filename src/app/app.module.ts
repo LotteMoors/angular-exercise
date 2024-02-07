@@ -8,12 +8,14 @@ import { CoreModule } from './core/ core.module';
 import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
+import { ProductModule } from './products/product/product.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     CustomersModule,
     ProductsModule,
+    ProductModule,
     OrdersModule,
     SharedModule,
     CoreModule,
