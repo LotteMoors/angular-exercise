@@ -1,34 +1,33 @@
 <form [formGroup]="filterForm">
-    <input matInput placeholder="Search" formControlName="searchFilter">
-</form><br />
+  <input matInput placeholder="Search" formControlName="searchFilter" />
+</form>
 <br />
-<a [routerLink]="['/products']">
-  Products
-</a>
+<br />
+<a [routerLink]="['/products']"> Products </a>
 <br />
 <br />
 <table class="table table-hover">
-    <thead>
-        <tr>
-            <th (click)="sort('name')">Name</th>
-            <th (click)="sort('city')">City</th>
-            <th (click)="sort('orderTotal')">Order Total</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let customer of customers | filter: ['name', 'city']: searchFilter">
-        <td>
-            <a [routerLink]="['/orders', customer.id]">
-                {{ customer.name | capitalize }}
-            </a>
-        </td>
-        <td>{{ customer.city }}</td>
-        <td>{{ customer.orderTotal | currency:currencyCode:'symbol' }}</td>
+  <thead>
+    <tr>
+      <th (click)="sort('name')">Name</th>
+      <th (click)="sort('city')">City</th>
+      <th (click)="sort('orderTotal')">Order Total</th>
     </tr>
-    <tr *ngIf="!customers || !customers.length">
-        <td colspan="4">No customers found</td>
-    </tr>
-    <tr *ngIf="customers || customers.length">
-        <td colspan="4">Amount of customers: {{amountOfCustomers}} </td>
-    </tr>
+  </thead>
+  <tr *ngFor="let customer of filteredCustomers">
+    <td>
+      <a [routerLink]="['/orders', customer.id]">
+        {{ customer.name | capitalize }}
+      </a>
+    </td>
+    <td>{{ customer.city }}</td>
+    <td>{{ customer.orderTotal | currency : currencyCode : "symbol" }}</td>
+  </tr>
+  <tr *ngIf="!customers || !customers.length">
+    <td colspan="4">No customers found</td>
+  </tr>
+  <tr *ngIf="customers || customers.length">
+    <td colspan="4">Amount of customers: {{ filteredCustomers.length }}</td>
+  </tr>
 </table>
 <br />

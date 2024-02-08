@@ -1,17 +1,20 @@
-import { Component, OnInit, Input, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ICustomer } from '../../shared/interfaces';
 import { SorterService } from '../../core/sorter.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Observable, Subscription, debounceTime, map } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { DataService } from '../../core/ data.service';
+import { FilterPipe } from '../../shared/filter.pipe';
 
 @Component({
   selector: 'app-customers-list',
   templateUrl: './customers-list.component.html',
+  providers: [FilterPipe],
 })
 export class CustomersListComponent implements OnInit {
   customers: ICustomer[] = [];
+  filteredCustomers: ICustomer[] = [];
   currencyCode: string = 'USD';
   filterForm: FormGroup = new FormGroup({
     searchFilter: new FormControl<string>(''),
@@ -19,10 +22,10 @@ export class CustomersListComponent implements OnInit {
   filterFormSubsription: Subscription;
   searchFilter: string = '';
 
-
   constructor(
     private dataService: DataService,
-    private sorterService: SorterService
+    private sorterService: SorterService,
+    private filterPipe: FilterPipe
   ) {}
 
   ngOnInit() {
@@ -34,8 +37,15 @@ export class CustomersListComponent implements OnInit {
       .pipe(debounceTime(400))
       .subscribe((changes) => {
         this.searchFilter = changes.searchFilter;
-        console.info(changes)
       });
+  }
+
+  ngDoCheck() {
+    this.filteredCustomers = this.filterPipe.transform(
+      this.customers,
+      ['name', 'city'],
+      this.searchFilter
+    );
   }
 
   sort(prop: string) {

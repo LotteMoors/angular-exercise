@@ -11,7 +11,10 @@ export class FilterPipe implements PipeTransform {
       const filtered: any[] = [];
       data.map((item) =>
         filterProperty.forEach((prop) => {
-          if (item[prop].toLowerCase().includes(filterValue)) {
+          if (
+            item[prop].toLowerCase().includes(filterValue) &&
+            !filtered.includes(item)
+          ) {
             filtered.push(item);
           }
         })
