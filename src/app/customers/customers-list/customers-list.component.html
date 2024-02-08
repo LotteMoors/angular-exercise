@@ -15,7 +15,7 @@
             <th (click)="sort('orderTotal')">Order Total</th>
         </tr>
     </thead>
-    <tr *ngFor="let customer of customers | filter: 'name' : searchFilter">
+    <tr *ngFor="let customer of customers | filter: ['name', 'city']: searchFilter">
         <td>
             <a [routerLink]="['/orders', customer.id]">
                 {{ customer.name | capitalize }}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, signal } from '@angular/core';
 
 import { ICustomer } from '../../shared/interfaces';
 import { SorterService } from '../../core/sorter.service';
@@ -19,6 +19,7 @@ export class CustomersListComponent implements OnInit {
   filterFormSubsription: Subscription;
   searchFilter: string = '';
 
+
   constructor(
     private dataService: DataService,
     private sorterService: SorterService
@@ -33,6 +34,7 @@ export class CustomersListComponent implements OnInit {
       .pipe(debounceTime(400))
       .subscribe((changes) => {
         this.searchFilter = changes.searchFilter;
+        console.info(changes)
       });
   }
 
