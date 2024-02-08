@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 import { ICustomer } from '../../shared/interfaces';
 import { SorterService } from '../../core/sorter.service';
@@ -15,6 +15,7 @@ import { FilterPipe } from '../../shared/filter.pipe';
 export class CustomersListComponent implements OnInit {
   customers: ICustomer[] = [];
   filteredCustomers: ICustomer[] = [];
+  totalOrders = signal<number>(0);
   currencyCode: string = 'USD';
   filterForm: FormGroup = new FormGroup({
     searchFilter: new FormControl<string>(''),
@@ -46,6 +47,10 @@ export class CustomersListComponent implements OnInit {
       ['name', 'city'],
       this.searchFilter
     );
+    this.totalOrders.set(0);
+    this.filteredCustomers.forEach((customer) => {
+      this.totalOrders.set(this.totalOrders() + customer.orderTotal);
+    });
   }
 
   sort(prop: string) {

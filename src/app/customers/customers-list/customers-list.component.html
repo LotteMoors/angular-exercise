@@ -23,6 +23,11 @@
     <td>{{ customer.city }}</td>
     <td>{{ customer.orderTotal | currency : currencyCode : "symbol" }}</td>
   </tr>
+  <tr *ngIf="customers || customers.length">
+    <td></td>
+    <td></td>
+    <td>{{ totalOrders() | currency : currencyCode : "symbol" }}</td>
+  </tr>
   <tr *ngIf="!customers || !customers.length">
     <td colspan="4">No customers found</td>
   </tr>
