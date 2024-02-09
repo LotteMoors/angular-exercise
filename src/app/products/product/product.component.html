@@ -1,3 +1,15 @@
 <h1>{{ title }}</h1>
-<p>{{ product.title }}</p>
+<a [routerLink]="['/products']">All products</a>
+<br />
+<br />
+<button>Edit</button>
+<br />
+<br />
+<div>
+  <img src="{{ product.images[0] }}" alt="product" />
+  <p>{{ product.title }}</p>
+  <p>{{ product.description }}</p>
+  <p>Category: {{ product.category }}</p>
+  <p>Price: {{ product.price | currency : 'USD' : "symbol" }}</p>
+</div>
 <br />

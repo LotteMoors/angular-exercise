@@ -9,6 +9,7 @@ import { CustomersModule } from './customers/customers.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { ProductModule } from './products/product/product.module';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ProductModule } from './products/product/product.module';
     CoreModule,
     AppRoutingModule,
   ],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })

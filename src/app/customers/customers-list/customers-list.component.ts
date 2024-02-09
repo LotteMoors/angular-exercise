@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 
 import { ICustomer } from '../../shared/interfaces';
 import { SorterService } from '../../core/sorter.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
 import { DataService } from '../../core/ data.service';
 import { FilterPipe } from '../../shared/filter.pipe';
@@ -14,11 +14,10 @@ import { FilterPipe } from '../../shared/filter.pipe';
 })
 export class CustomersListComponent implements OnInit {
   customers: ICustomer[] = [];
-  filteredCustomers: ICustomer[] = [];
   totalOrders = signal<number>(0);
   currencyCode: string = 'USD';
-  filterForm: FormGroup = new FormGroup({
-    searchFilter: new FormControl<string>(''),
+  filterForm = this.formBuilder.group({
+    searchFilter: '',
   });
   filterFormSubsription: Subscription;
   searchFilter: string = '';
@@ -26,31 +25,29 @@ export class CustomersListComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private sorterService: SorterService,
+    private formBuilder: FormBuilder,
     private filterPipe: FilterPipe
   ) {}
 
   ngOnInit() {
-    this.dataService
-      .getCustomers()
-      .subscribe((customers: ICustomer[]) => (this.customers = customers));
-
-    this.filterFormSubsription = this.filterForm.valueChanges
-      .pipe(debounceTime(400))
-      .subscribe((changes) => {
-        this.searchFilter = changes.searchFilter;
-      });
-  }
-
-  ngDoCheck() {
-    this.filteredCustomers = this.filterPipe.transform(
-      this.customers,
-      ['name', 'city'],
-      this.searchFilter
-    );
-    this.totalOrders.set(0);
-    this.filteredCustomers.forEach((customer) => {
-      this.totalOrders.set(this.totalOrders() + customer.orderTotal);
+    this.dataService.getCustomers().subscribe((customers: ICustomer[]) => {
+      this.customers = customers;
+      this.filterFormSubsription = this.filterForm.valueChanges
+        .pipe(debounceTime(400))
+        .subscribe((changes) => {
+          this.searchFilter = changes.searchFilter;
+          this.customers = this.filterPipe.transform(
+            customers,
+            ['name', 'city'],
+            this.searchFilter
+          );
+          this.totalOrders.set(0);
+          this.customers.forEach((customer) => {
+            this.totalOrders.set(this.totalOrders() + customer.orderTotal);
+          });
+        });
     });
+    this.filterFormSubsription.unsubscribe();
   }
 
   sort(prop: string) {

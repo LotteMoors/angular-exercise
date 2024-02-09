@@ -14,7 +14,7 @@
       <th (click)="sort('orderTotal')">Order Total</th>
     </tr>
   </thead>
-  <tr *ngFor="let customer of filteredCustomers">
+  <tr *ngFor="let customer of customers">
     <td>
       <a [routerLink]="['/orders', customer.id]">
         {{ customer.name | capitalize }}
@@ -32,7 +32,7 @@
     <td colspan="4">No customers found</td>
   </tr>
   <tr *ngIf="customers || customers.length">
-    <td colspan="4">Amount of customers: {{ filteredCustomers.length }}</td>
+    <td colspan="4">Amount of customers: {{ customers.length }}</td>
   </tr>
 </table>
 <br />
