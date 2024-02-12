@@ -30,7 +30,7 @@ export class DataService {
   }
 
   getOrders(id: number): Observable<IOrder[]> {
-    return this.http.get<IOrder[]>(this.baseUrl + 'orders.json').pipe(
+    return this.http.get<IOrder[]>('../../assets/orders.json').pipe(
       map((orders) => {
         let custOrders = orders.filter(
           (order: IOrder) => order.customerId === id

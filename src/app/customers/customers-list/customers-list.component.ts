@@ -47,7 +47,7 @@ export class CustomersListComponent implements OnInit {
           });
         });
     });
-    this.filterFormSubsription.unsubscribe();
+    this.filterFormSubsription?.unsubscribe();
   }
 
   sort(prop: string) {
