@@ -9,7 +9,7 @@ import { ICustomer, IOrder, IProduct } from '../../app/shared/interfaces';
 
 @Injectable()
 export class DataService {
-  baseUrl: string = 'assets/';
+  baseUrl: string = 'http://localhost:4200/assets/';
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +30,7 @@ export class DataService {
   }
 
   getOrders(id: number): Observable<IOrder[]> {
-    return this.http.get<IOrder[]>('../../assets/orders.json').pipe(
+    return this.http.get<IOrder[]>(this.baseUrl + 'orders.json').pipe(
       map((orders) => {
         let custOrders = orders.filter(
           (order: IOrder) => order.customerId === id

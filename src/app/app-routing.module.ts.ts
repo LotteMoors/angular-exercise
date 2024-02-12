@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrdersModule } from './orders/orders.module';
 
 export const routes: Routes = [
   {
-    path: 'customers’',
+    path: 'customers',
     loadChildren: () =>
       import('./customers/customers.module').then((m) => m.CustomersModule),
   },
   {
-    path: 'orders',
+    path: 'orders/:id',
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },
@@ -18,6 +17,16 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./products/products.module').then((m) => m.ProductsModule),
   },
+  {
+    path: 'products/:id',
+    loadChildren: () =>
+      import('./products/product/product.module').then((m) => m.ProductModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'customers',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
