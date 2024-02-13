@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DataService } from '../../core/ data.service';
 import { IProduct } from '../../shared/interfaces';
 
@@ -12,14 +17,14 @@ import { IProduct } from '../../shared/interfaces';
 })
 export class AddProductComponent {
   addProductForm = this.formBuilder.group({
-    title: '',
-    description: '',
-    brand: '',
-    category: '',
-    price: 0,
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    brand: ['', Validators.required],
+    category: ['', Validators.required],
+    price: [0, Validators.required],
   });
 
-  @Input() products: IProduct[];
+  @Input() products: any;
   @Output() closeModalAfterSubmit = new EventEmitter();
   closeModal: boolean;
 
@@ -29,8 +34,9 @@ export class AddProductComponent {
   ) {}
 
   submitProduct() {
-    this.dataService.setProduct(this.addProductForm.value);
-    this.closeModalAfterSubmit.emit();
-    this.products.push(this.addProductForm.value);
+    this.dataService.setProduct(this.addProductForm.value).subscribe((data) => {
+      this.closeModalAfterSubmit.emit();
+      this.products.unshift({ ...this.addProductForm.value, id: data.id });
+    });
   }
 }

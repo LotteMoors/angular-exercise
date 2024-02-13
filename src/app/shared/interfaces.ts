@@ -18,10 +18,10 @@ export interface IOrderItem {
 }
 
 export interface IProduct {
-  id?: number;
-  title?: string;
-  description?: string;
-  brand?: string;
+  id: number;
+  title: string;
+  description: string;
+  brand: string;
   category?: string;
   price?: number;
   discountPercentage?: number;

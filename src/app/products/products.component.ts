@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
   openModal = signal(false);
 
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.title = 'Products';
