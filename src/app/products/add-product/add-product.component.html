@@ -1,11 +1,13 @@
 <div class="modal">
-<p>Add product</p>
-<form [formGroup]="addProduct">
-  <input matInput placeholder="Title" formControlName="Title" />
-  <input matInput placeholder="Description" formControlName="Description" />
-  <input matInput placeholder="Brand" formControlName="Brand" />
-  <input matInput placeholder="Category" formControlName="Category" />
-  <input matInput placeholder="Price" formControlName="Price" />
-  <button>Submit</button>
-</form>
+  <p>Add product</p>
+  <form [formGroup]="addProductForm">
+    <div class="form-content">
+      <input matInput placeholder="Title" formControlName="Title" />
+      <input matInput placeholder="Description" formControlName="Description" />
+      <input matInput placeholder="Brand" formControlName="Brand" />
+      <input matInput placeholder="Category" formControlName="Category" />
+      <input matInput placeholder="Price" formControlName="Price" />
+    </div>
+    <button (click)="submitProduct()" >Submit</button>
+  </form>
 </div>

@@ -47,14 +47,11 @@ export class DataService {
       .pipe(catchError(this.handleError));
   }
 
-  setProduct(value: string): Observable<IProduct> {
+  setProduct(data: Partial<IProduct>): Observable<IProduct> {
     return this.http
       .post<IProduct>('https://dummyjson.com/products/add', {
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: value,
-          /* other product data */
-        }),
+        body: JSON.stringify(data),
       })
       .pipe(catchError(this.handleError));
   }
