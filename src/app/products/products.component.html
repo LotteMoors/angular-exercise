@@ -5,7 +5,7 @@
   <br />
   <button (click)="toggleModal()">+ add product</button>
   <div *ngIf="openModal()">
-    <app-add-product></app-add-product>
+      <app-add-product (closeModalAfterSubmit)=closeModal($event)></app-add-product>
   </div>
   <br />
   <br />

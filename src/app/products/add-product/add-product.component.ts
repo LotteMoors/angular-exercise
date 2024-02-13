@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from '../../core/ data.service';
 import { Subscription, debounceTime } from 'rxjs';
+import { ModalService } from '../../core/modal.service';
 
 @Component({
   selector: 'app-add-product',
@@ -18,7 +19,8 @@ export class AddProductComponent {
     category: '',
     price: 0,
   });
-  productFormSubscription: Subscription;
+  @Output() closeModalAfterSubmit = new EventEmitter();
+  closeModal: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,10 +28,7 @@ export class AddProductComponent {
   ) {}
 
   submitProduct() {
-    this.productFormSubscription = this.addProductForm.valueChanges
-      .pipe(debounceTime(400))
-      .subscribe((changes) => {
-        this.dataService.setProduct(changes);
-      });
+    this.dataService.setProduct(this.addProductForm.value);
+    this.closeModalAfterSubmit.emit();
   }
 }
