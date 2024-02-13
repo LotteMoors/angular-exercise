@@ -22,11 +22,11 @@ export interface IProduct {
   title: string;
   description: string;
   brand: string;
-  category: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  images: any[];
+  category?: string;
+  price?: number;
+  discountPercentage?: number;
+  rating?: number;
+  stock?: number;
+  thumbnail?: string;
+  images?: any[];
 }

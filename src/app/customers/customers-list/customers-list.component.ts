@@ -20,7 +20,6 @@ export class CustomersListComponent implements OnInit {
     searchFilter: '',
   });
   filterFormSubsription: Subscription;
-  searchFilter: string = '';
 
   constructor(
     private dataService: DataService,
@@ -35,11 +34,10 @@ export class CustomersListComponent implements OnInit {
       this.filterFormSubsription = this.filterForm.valueChanges
         .pipe(debounceTime(400))
         .subscribe((changes) => {
-          this.searchFilter = changes.searchFilter;
           this.customers = this.filterPipe.transform(
             customers,
             ['name', 'city'],
-            this.searchFilter
+            changes.searchFilter
           );
           this.totalOrders.set(0);
           this.customers.forEach((customer) => {

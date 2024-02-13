@@ -5,7 +5,7 @@
   <br />
   <button (click)="toggleModal()">+ add product</button>
   <div *ngIf="openModal()">
-    <app-add-product></app-add-product>
+      <app-add-product [products]="products" (closeModalAfterSubmit)=closeModal($event)></app-add-product>
   </div>
   <br />
   <br />
@@ -14,7 +14,7 @@
       <div class="product-card" *ngFor="let product of products">
         <a [routerLink]="['/products', product.id]">
           <div class="product-content">
-            <div *ngIf="product.images.length">
+            <div *ngIf="product.images?.length">
               <img src="{{ product.images[0] }}" alt="product" />
             </div>
             <div class="product-body">

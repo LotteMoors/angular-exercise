@@ -1,7 +1,21 @@
 .modal{
   position: absolute;
-  background-color: bisque;
-  top: 5%;
+  background-color: white;
+  border: 2px black solid;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25rem;
   height: 20rem;
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.form-content{
+  display:flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
