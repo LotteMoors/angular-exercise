@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { DataService } from '../../core/ data.service';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -9,13 +11,25 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './add-product.component.css',
 })
 export class AddProductComponent {
-  addProduct = this.formBuilder.group({
-    Title: '',
-    Description: '',
-    Brand: '',
-    Category: '',
-    Price: 0,
+  addProductForm = this.formBuilder.group({
+    title: '',
+    description: '',
+    brand: '',
+    category: '',
+    price: 0,
   });
+  productFormSubscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private dataService: DataService
+  ) {}
+
+  submitProduct() {
+    this.productFormSubscription = this.addProductForm.valueChanges
+      .pipe(debounceTime(400))
+      .subscribe((changes) => {
+        this.dataService.setProduct(changes);
+      });
+  }
 }
