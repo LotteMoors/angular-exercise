@@ -18,15 +18,15 @@ export interface IOrderItem {
 }
 
 export interface IProduct {
-  id: number;
-  title: string;
-  description: string;
-  brand: string;
-  category: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  images: any[];
+  id?: number;
+  title?: string;
+  description?: string;
+  brand?: string;
+  category?: string;
+  price?: number;
+  discountPercentage?: number;
+  rating?: number;
+  stock?: number;
+  thumbnail?: string;
+  images?: any[];
 }
