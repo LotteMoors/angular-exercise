@@ -1,0 +1,7 @@
+.modal{
+  position: absolute;
+  background-color: bisque;
+  top: 5%;
+  height: 20rem;
+  width: 80%;
+}

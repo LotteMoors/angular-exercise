@@ -1,3 +1,7 @@
+.screen{
+  position: relative;
+}
+
 .products-table {
   display: flex;
   flex-wrap: wrap;

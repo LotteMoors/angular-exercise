@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 import { IProduct } from '../shared/interfaces';
 import { DataService } from '../core/ data.service';
@@ -11,6 +11,7 @@ import { DataService } from '../core/ data.service';
 export class ProductsComponent implements OnInit {
   title: string = '';
   products: IProduct[] = [];
+  openModal = signal<boolean>(false);
 
   constructor(private dataService: DataService) {}
 
@@ -19,5 +20,10 @@ export class ProductsComponent implements OnInit {
     this.dataService
       .getAllProducts()
       .subscribe((data: any) => (this.products = data.products));
+  }
+
+  toggleModal() {
+    this.openModal.set(!this.openModal());
+    console.log(this.openModal());
   }
 }

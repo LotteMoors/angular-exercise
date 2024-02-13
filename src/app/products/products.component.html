@@ -1,27 +1,31 @@
-<h1>{{ title }}</h1>
-<a [routerLink]="['/customers']">Go to customers</a>
-<br />
-<br />
-<button>+ add product</button>
-<br />
-<br />
 <div class="screen">
-  <div class="products-table">
-    <div class="product-card" *ngFor="let product of products">
-      <a [routerLink]="['/products', product.id]">
-        <div class="product-content">
-          <div *ngIf="product.images.length">
-            <img src="{{ product.images[0] }}" alt="product" />
+  <h1>{{ title }}</h1>
+  <a [routerLink]="['/customers']">Go to customers</a>
+  <br />
+  <br />
+  <button (click)="toggleModal()">+ add product</button>
+  <div *ngIf="openModal()">
+    <app-add-product></app-add-product>
+  </div>
+  <br />
+  <br />
+  <div>
+    <div class="products-table">
+      <div class="product-card" *ngFor="let product of products">
+        <a [routerLink]="['/products', product.id]">
+          <div class="product-content">
+            <div *ngIf="product.images.length">
+              <img src="{{ product.images[0] }}" alt="product" />
+            </div>
+            <div class="product-body">
+              <h2>{{ product.title }}</h2>
+              <p>
+                {{ product.description }}
+              </p>
+            </div>
           </div>
-          <div class="product-body">
-            <h2>{{ product.title }}</h2>
-            <p>
-              {{ product.description }}
-            </p>
-          </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </div>
-<br />
