@@ -55,6 +55,21 @@ export class DataService {
       })
       .pipe(catchError(this.handleError));
   }
+  // fetch('https://dummyjson.com/products/1', {
+  //   method: 'PUT', /* or PATCH */
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({
+  //     title: 'iPhone Galaxy +1'
+  //   })
+  // })
+  updateProduct(data: Partial<IProduct>): Observable<IProduct> {
+    return this.http
+      .put<IProduct>(`https://dummyjson.com/products/${data.id}`, {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   getProductById(id: number): Observable<IProduct> {
     return this.http

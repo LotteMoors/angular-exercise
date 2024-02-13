@@ -2,14 +2,22 @@
 <a [routerLink]="['/products']">All products</a>
 <br />
 <br />
-<button>Edit</button>
+<button (click)="toggleModal()">Edit</button>
 <br />
 <br />
+<div *ngIf="openModal()">
+  <app-product-modal
+    [isEdit]="true"
+    [product]="product"
+    (closeModalAfterSubmit)="closeModal($event)"
+    (updateProduct)="updateProduct($event)"
+  ></app-product-modal>
+</div>
 <div>
-  <img src="{{ product.images[0] }}" alt="product" />
-  <p>{{ product.title }}</p>
-  <p>{{ product.description }}</p>
-  <p>Category: {{ product.category }}</p>
-  <p>Price: {{ product.price | currency : 'USD' : "symbol" }}</p>
+  <img src="{{ product?.thumbnail && product.thumbnail }}" alt="product" />
+  <p>{{ product?.title }}</p>
+  <p>{{ product?.description }}</p>
+  <p>Category: {{ product?.category }}</p>
+  <p>Price: {{ product?.price | currency : "USD" : "symbol" }}</p>
 </div>
 <br />
